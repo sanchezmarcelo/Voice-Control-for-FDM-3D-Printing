@@ -9,6 +9,7 @@ import retrofit2.Response;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.service.voice.VoiceInteractionService;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /*
@@ -45,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
 //        String serverIP = userEnterServerIP.getEditableText().toString();
 //        return serverIP.toString();
 //    }
+
+    public void createHotWordDetectionService(){
+        VoiceInteractionService hotword = new VoiceInteractionService();
+//        hotword.createAlwaysOnHotwordDetector("Hey printer", Locale.ENGLISH,
+//                );
+    }
 
     public void createThreadPolicy(){
         StrictMode.ThreadPolicy policy = new

@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:id="@+id/speech_fragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/abstract_gradient">
 
     <ImageView
         android:id="@+id/command_mic"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="85dp"
         android:layout_marginTop="240dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:contentDescription="Image of Microphone. Click to activate"
         android:onClick="getSpeechInput"
+        android:paddingBottom="10dp"
         android:src="@drawable/mic_img" />
 
-    <TextView
-        android:id="@+id/promptUserForSpeech"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/command_mic"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
-        android:text="State a Command: \'Preheat PLA\' | \'Home Axis\'" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="initTTS"
-        android:text="Speak"
-        />
-</LinearLayout>
+
+
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:onClick="initTTS"-->
+<!--        android:layout_below="@+id/command_mic"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:text="Speak" />-->
+</RelativeLayout>
 
 
