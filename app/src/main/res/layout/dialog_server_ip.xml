@@ -7,7 +7,7 @@
         android:id="@+id/user_enter_server_ip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="OctoPrint Server IP"
+        android:hint="     OctoPrint Server IP"
         />
 
 

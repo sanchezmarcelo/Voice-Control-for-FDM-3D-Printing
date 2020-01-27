@@ -1,6 +1,7 @@
 package com.marcelo.android.voiceactivated3dprinter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -76,6 +78,12 @@ public class PrinterStatusFragment extends Fragment{
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_actions, menu);
+    }
+
     public void createWebcamView(View view){
         WebView webView = view.findViewById(R.id.webcam);
         webView.loadUrl("http://192.168.1.2/webcam/?action=stream");
@@ -84,10 +92,28 @@ public class PrinterStatusFragment extends Fragment{
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_actions, menu);
-
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_add_printer:
+                Log.d("Menu", "add printer selected");
+                ServerDialog serverDialog = new ServerDialog();
+                serverDialog.show(getFragmentManager(), "server_dialog");
+                return true;
+            case R.id.action_api_key:
+                APIKeyDialog apiDialog = new APIKeyDialog();
+                apiDialog.show(getFragmentManager(), "api_dialog");
+                return true;
+            case R.id.action_faq:
+                Intent FAQActivity = new Intent(getActivity(), com.marcelo.android.voiceactivated3dprinter.FAQActivity.class);
+                getActivity().startActivity(FAQActivity);
+                return true;
+            case R.id.action_settings:
+                Intent SettingsActivity = new Intent(getActivity(), com.marcelo.android.voiceactivated3dprinter.SettingsActivity.class);
+                getActivity().startActivity(SettingsActivity);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

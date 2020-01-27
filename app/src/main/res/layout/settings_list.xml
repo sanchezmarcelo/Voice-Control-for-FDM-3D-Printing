@@ -1,5 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorAccent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Settings"
+            android:textColor="#FFFF"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"/>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/talkback_title"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textStyle="bold"
+        android:text="Talkback"
+        android:layout_marginTop="8dp"
+        ></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/talkback_text"
+            android:layout_below="@+id/talkback_title"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="100dp"
+            android:text="Toggles the talkback feature after you've spoken a command."
+            ></TextView>
+
+    <Switch
+        android:id="@+id/talkback_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@+id/talkback_text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+    </Switch>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/talkback_switch"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="__________________________________________________"
+        android:layout_marginBottom="10dp"
+        />
 
 </RelativeLayout>

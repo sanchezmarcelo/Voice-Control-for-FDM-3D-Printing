@@ -12,12 +12,14 @@ import android.os.StrictMode;
 import android.service.voice.VoiceInteractionService;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 /*
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     PageAdapter pageAdapter;
     TextToSpeech textToSpeech;
+    EditText userServerIP;
+    EditText userAPIKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +45,9 @@ public class MainActivity extends AppCompatActivity {
         createThreadPolicy();
         createToolbar();
         createViewPager();
+        userServerIP = findViewById(R.id.user_enter_server_ip);
+        userAPIKey = findViewById(R.id.user_enter_api_key);
     }
-
-//    public String getUserTextInput(){
-//        String serverIP = userEnterServerIP.getEditableText().toString();
-//        return serverIP.toString();
-//    }
 
     public void createHotWordDetectionService(){
         VoiceInteractionService hotword = new VoiceInteractionService();
@@ -90,22 +91,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void sendNetworkRequest(VoiceCommand voiceCommand){
+    private void sendHomeNetworkRequest(Home home){
 
-        OctoPrintClient client = NetworkRequestGenerator.createService(OctoPrintClient.class);
-        Call<VoiceCommand> call = client.newHomeSession(voiceCommand);
+        HomeClient client = NetworkRequestGenerator.createService(HomeClient.class);
+        Call<Home> call = client.newHomeSession(home);
 
         Log.d("sendNetworkRequest", "called");
 
-        call.enqueue(new Callback<VoiceCommand>() {
+        call.enqueue(new Callback<Home>() {
             @Override
-            public void onResponse(Call<VoiceCommand> call, Response<VoiceCommand> response) {
+            public void onResponse(Call<Home> call, Response<Home> response) {
                 Log.d("onResponse", "success");
                 Toast.makeText(MainActivity.this, "Home Executed", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<VoiceCommand> call, Throwable t) {
+            public void onFailure(Call<Home> call, Throwable t) {
                 Log.d("onResponse", "failure");
                 t.printStackTrace();
                     Toast.makeText(MainActivity.this, "F", Toast.LENGTH_SHORT).show();
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getPrinterStatus(){
-//speaks the nozzle temp and bed temp
+    //speaks the nozzle temp and bed temp
     }
 
     public void getSpeechInput(View view) {
@@ -282,9 +283,9 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.d("Home", "requested");
                         String[] axes = {"x", "y", "z"};
-                        VoiceCommand voiceCmd = new VoiceCommand(cmd.get(0), axes);
-                        Log.d("VoiceCommand", "object created");
-                        sendNetworkRequest(voiceCmd);
+                        Home voiceCmd = new Home(cmd.get(0), axes);
+                        Log.d("Home", "object created");
+                        sendHomeNetworkRequest(voiceCmd);
                         Log.d("sendNetworkRequest", "called");
                     }
 

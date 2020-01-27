@@ -29,5 +29,13 @@ public class NetworkRequestGenerator {
         return retrofit.create(serviceClass);
     }
 
+    public static String getOctoPrintIP(){
+        return baseURL;
+    }
+
+    public void setOctoPrintIP(String str){
+        str = baseURL;
+    }
+
 
 }

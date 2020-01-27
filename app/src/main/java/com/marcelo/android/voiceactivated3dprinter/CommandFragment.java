@@ -1,5 +1,6 @@
 package com.marcelo.android.voiceactivated3dprinter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 /*
@@ -58,14 +60,18 @@ public class CommandFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+
+        View view = inflater.inflate(R.layout.command_fragment, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.command_fragment, container, false);
+        return view;
     }
 
 
@@ -103,6 +109,8 @@ public class CommandFragment extends Fragment {
                 getActivity().startActivity(FAQActivity);
                 return true;
             case R.id.action_settings:
+                Intent SettingsActivity = new Intent(getActivity(), com.marcelo.android.voiceactivated3dprinter.SettingsActivity.class);
+                getActivity().startActivity(SettingsActivity);
                 return true;
                 default:
                     return super.onOptionsItemSelected(item);

@@ -6,7 +6,23 @@
         android:id="@+id/user_enter_api_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="API Key"
+        android:hint="     API Key"
+        />
+
+    <TextView
+        android:id="@+id/current_key_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_enter_api_key"
+        android:layout_centerHorizontal="true"
+        android:text="Current API Key:" />
+
+    <TextView
+        android:id="@+id/current_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_key_title"
+        android:layout_centerHorizontal="true"
         />
 
 </RelativeLayout>
