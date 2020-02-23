@@ -12,13 +12,12 @@ import android.os.StrictMode;
 import android.service.voice.VoiceInteractionService;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 
 
@@ -47,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         createViewPager();
         userServerIP = findViewById(R.id.user_enter_server_ip);
         userAPIKey = findViewById(R.id.user_enter_api_key);
+
+        //connectToAWS();
+
+
     }
 
     public void createHotWordDetectionService(){
@@ -68,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         pageAdapter = new PageAdapter(getSupportFragmentManager());
         pageAdapter.addFragment(new CommandFragment(), "Command");
         pageAdapter.addFragment(new PrinterStatusFragment(), "Printer Status");
-
         viewPager.setAdapter(pageAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -278,9 +280,6 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         });
-
-
-
                         Log.d("Home", "requested");
                         String[] axes = {"x", "y", "z"};
                         Home voiceCmd = new Home(cmd.get(0), axes);
@@ -290,7 +289,6 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     //NOZZLE REQUEST
-                    //Bug setting to zero
                     if(cmd.get(0).equals("nozzle")){
                         int nozzleOnetemp = Integer.parseInt(cmd.get(1));
                         int nozzleTwoTemp = 0;
@@ -314,6 +312,14 @@ public class MainActivity extends AppCompatActivity {
                         Extrude extrudeRequest = new Extrude(cmd.get(0), extrudeAmount);
                         sendExtrudeNetworkRequest(extrudeRequest);
                     }
+
+                    //PRINT REQUEST
+                if(cmd.get(0).equals("print")){
+                    Intent print = new Intent(this, PrintActivity.class);
+                    String userOBJ = cmd.get(2);
+                    print.putExtra("key", userOBJ);
+                    startActivity(print);
+                }
             }
         }
     }

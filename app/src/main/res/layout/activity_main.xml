@@ -30,12 +30,12 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Command" />
+                    android:text="Param 1" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quick Print" />
+                    android:text="Param 2" />
 
             </com.google.android.material.tabs.TabLayout>
 
@@ -45,6 +45,9 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" >
+
+
+    </androidx.viewpager.widget.ViewPager>
 
 </RelativeLayout>
