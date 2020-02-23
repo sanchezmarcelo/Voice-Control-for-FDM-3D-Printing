@@ -105,6 +105,10 @@ public class CommandFragment extends Fragment {
                 APIKeyDialog apiDialog = new APIKeyDialog();
                 apiDialog.show(getFragmentManager(), "api_dialog");
                 return true;
+            case R.id.action_compute_server:
+                ComputeServerDialog computeServerDialog = new ComputeServerDialog();
+                computeServerDialog.show(getFragmentManager(), "compute_server_dialog");
+                return true;
             case R.id.action_faq:
                 Intent FAQActivity = new Intent(getActivity(), com.marcelo.android.voiceactivated3dprinter.FAQActivity.class);
                 getActivity().startActivity(FAQActivity);

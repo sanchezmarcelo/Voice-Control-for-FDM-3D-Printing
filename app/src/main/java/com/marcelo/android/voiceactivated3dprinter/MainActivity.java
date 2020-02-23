@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
         userServerIP = findViewById(R.id.user_enter_server_ip);
         userAPIKey = findViewById(R.id.user_enter_api_key);
 
-        //connectToAWS();
-
-
     }
 
     public void createHotWordDetectionService(){

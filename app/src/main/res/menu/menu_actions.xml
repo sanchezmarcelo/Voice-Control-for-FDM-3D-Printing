@@ -13,6 +13,11 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_compute_server"
+        android:title="Compute Server"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/action_faq"
         android:title="FAQ"
         app:showAsAction="never" />
