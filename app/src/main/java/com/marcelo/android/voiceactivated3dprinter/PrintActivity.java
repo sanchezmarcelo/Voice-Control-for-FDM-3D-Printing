@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.util.Log;
 import android.view.Menu;
@@ -16,9 +19,14 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import static com.marcelo.android.voiceactivated3dprinter.ComputeServerRequestGenerator.retrofit;
+
 public class PrintActivity extends AppCompatActivity {
 
     WebView thingiverse;
+    private static Retrofit.Builder builder = new Retrofit.Builder()
+            .baseUrl("http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com")
+            .addConverterFactory(GsonConverterFactory.create());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,27 +47,26 @@ public class PrintActivity extends AppCompatActivity {
         Toast.makeText(PrintActivity.this, "URL: " + requestedPrintJobURL, Toast.LENGTH_SHORT).show();
 
         try{
-            STL stl = new STL(requestedPrintJobURL);
-            sendCloudSliceRequest(stl);
+            sliceGCODE(requestedPrintJobURL);
         }catch (Exception e){
             Log.d("CloudSlice", ": " + e);
         }
 
     }
 
-    private void sendCloudSliceRequest(STL stl){
+    private void sliceGCODE(String url){
+        STLClient client = retrofit.create(STLClient.class);
 
-        STLClient client = ComputeServerRequestGenerator.createService(STLClient.class);
-        Call<STL> call = client.newPrintRequest(stl);
+        Call<ResponseBody> call = client.newPrintRequest(url);
 
-        call.enqueue(new Callback<STL>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<STL> call, Response<STL> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(PrintActivity.this, "Cloud Slice Request Executed Successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<STL> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(PrintActivity.this, "F", Toast.LENGTH_SHORT).show();
             }
         });
