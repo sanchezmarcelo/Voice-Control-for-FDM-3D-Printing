@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.service.voice.VoiceInteractionService;
@@ -15,6 +16,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 
@@ -34,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     PageAdapter pageAdapter;
     TextToSpeech textToSpeech;
-    EditText userServerIP;
-    EditText userAPIKey;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         createThreadPolicy();
         createToolbar();
         createViewPager();
-        userServerIP = findViewById(R.id.user_enter_server_ip);
-        userAPIKey = findViewById(R.id.user_enter_api_key);
 
     }
+
+
 
     public void createHotWordDetectionService(){
         VoiceInteractionService hotword = new VoiceInteractionService();

@@ -1,32 +1,44 @@
 package com.marcelo.android.voiceactivated3dprinter;
 
+import android.app.DownloadManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.webkit.DownloadListener;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import static com.marcelo.android.voiceactivated3dprinter.ComputeServerRequestGenerator.httpClient;
 import static com.marcelo.android.voiceactivated3dprinter.ComputeServerRequestGenerator.retrofit;
 
 public class PrintActivity extends AppCompatActivity {
 
     WebView thingiverse;
-    private static Retrofit.Builder builder = new Retrofit.Builder()
+    OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
+    HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+
+    private Retrofit builder = new Retrofit.Builder()
             .baseUrl("http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com")
-            .addConverterFactory(GsonConverterFactory.create());
+            .addConverterFactory(GsonConverterFactory.create()).client(okHttpClientBuilder.build()).build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,25 +46,41 @@ public class PrintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_print);
         Intent intent = getIntent();
         String val = intent.getStringExtra("key");
-        String thingiverseURL = "https://www.thingiverse.com/search?q=" + val;
+        String thingiverseURL = "https://www.thingiverse.com/search?q=" + val +
+                "&type=things&sort=popular";
 
         thingiverse = findViewById(R.id.ThingiverseWebView);
+        WebSettings settings = thingiverse.getSettings();
+        settings.setDomStorageEnabled(true);
         thingiverse.setWebViewClient(new ThingiverseViewClient(thingiverse, thingiverseURL));
         Button printButton = findViewById(R.id.print_button);
-
     }
 
     public void printButtonPressed(View view){
-        String requestedPrintJobURL = thingiverse.getUrl();
-        Toast.makeText(PrintActivity.this, "URL: " + requestedPrintJobURL, Toast.LENGTH_SHORT).show();
 
+        String requestedPrintJobURL = thingiverse.getUrl();
+        String test = thingiverse.getOriginalUrl();
+        //Toast.makeText(PrintActivity.this, "URL: " + test, Toast.LENGTH_SHORT).show();
+        
         try{
             sliceGCODE(requestedPrintJobURL);
         }catch (Exception e){
             Log.d("CloudSlice", ": " + e);
         }
+        // redirect to download link for gcode
+        thingiverse.setWebViewClient(new ThingiverseViewClient(thingiverse, "http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com/gcode.html"));
+        thingiverse.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+               Intent i = new Intent(Intent.ACTION_VIEW);
+               i.setData(Uri.parse(url));
+               startActivity(i);
+               Toast.makeText(PrintActivity.this, "Downloading...", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
+
 
     private void sliceGCODE(String url){
         STLClient client = retrofit.create(STLClient.class);
@@ -67,7 +95,7 @@ public class PrintActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "F", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PrintActivity.this, "Cloud Slice: No response ", Toast.LENGTH_SHORT).show();
             }
         });
     }
