@@ -86,7 +86,7 @@ public class PrinterStatusFragment extends Fragment{
 
     public void createWebcamView(View view){
         WebView webView = view.findViewById(R.id.webcam);
-        webView.loadUrl("http://192.168.1.2/webcam/?action=stream");
+        webView.loadUrl("http://104.145.72.254:11139/webcam/?action=stream");
         webView.setRotation(-90);
         webView.setInitialScale(165);
     }

@@ -1,6 +1,9 @@
 package com.marcelo.android.voiceactivated3dprinter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -61,7 +65,6 @@ public class PrintActivity extends AppCompatActivity {
         String requestedPrintJobURL = thingiverse.getUrl();
         String test = thingiverse.getOriginalUrl();
         //Toast.makeText(PrintActivity.this, "URL: " + test, Toast.LENGTH_SHORT).show();
-        
         try{
             sliceGCODE(requestedPrintJobURL);
         }catch (Exception e){
@@ -72,13 +75,25 @@ public class PrintActivity extends AppCompatActivity {
         thingiverse.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-               Intent i = new Intent(Intent.ACTION_VIEW);
-               i.setData(Uri.parse(url));
-               startActivity(i);
-               Toast.makeText(PrintActivity.this, "Downloading...", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                Toast.makeText(PrintActivity.this, "Downloading...", Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    public AlertDialog createProgressBar(){
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(PrintActivity.this);
+        LayoutInflater inflater = PrintActivity.this.getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.progress_bar, null));
+        builder.setCancelable(false);
+
+        dialog = builder.create();
+        dialog.show();
+        return dialog;
     }
 
 
@@ -87,10 +102,13 @@ public class PrintActivity extends AppCompatActivity {
 
         Call<ResponseBody> call = client.newPrintRequest(url);
 
+        final AlertDialog dialog = createProgressBar();
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(PrintActivity.this, "Cloud Slice Request Executed Successfully", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PrintActivity.this, "Cloud Slice Request Executed Successfully", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
 
             @Override
