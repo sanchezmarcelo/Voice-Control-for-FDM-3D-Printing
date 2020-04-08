@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         createThreadPolicy();
         createToolbar();
         createViewPager();
-
     }
 
 
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     public void createViewPager(){
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
         pageAdapter = new PageAdapter(getSupportFragmentManager());
         pageAdapter.addFragment(new CommandFragment(), "Command");
         pageAdapter.addFragment(new PrinterStatusFragment(), "Printer Status");
