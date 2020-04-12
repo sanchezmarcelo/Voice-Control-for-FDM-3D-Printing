@@ -113,9 +113,9 @@ public class PrintActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                //Toast.makeText(PrintActivity.this, "Cloud Slice Request Executed Successfully", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 redirectToHome();
+                Toast.makeText(PrintActivity.this, "Success. Printing STL...", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {

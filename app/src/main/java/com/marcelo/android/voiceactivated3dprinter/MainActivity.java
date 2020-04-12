@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                             cmd.add(a[1]);
                         }
 
-                        if(a.length == 3) {
+                        if(a.length == 3 || a.length == 4) {
                             cmd.add(a[0]);
                             cmd.add(a[1]);
                             cmd.add(a[2]);
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                     //JOG REQUEST
                     if(cmd.get(0).equals("jog")){
                         int axisTravelValue = Integer.parseInt(cmd.get(2));
-                        if(cmd.contains("x")){
+                        if(cmd.get(1).contains("x-axis")){
                             Jog jogRequest = new Jog(cmd.get(0), axisTravelValue, 0, 0);
                             sendJogNetworkRequest(jogRequest);
 
@@ -248,20 +248,44 @@ public class MainActivity extends AppCompatActivity {
                             textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
                                 @Override
                                 public void onInit(int status) {
-                                    String jogSuccess = "Jogging" + "x" + amount +"mm";
+                                    String jogSuccess = "Jogging" + axis + amount +"millimeters";
                                     textToSpeech.speak(jogSuccess, TextToSpeech.QUEUE_FLUSH, null, null);
                                 }
 
                             });
 
                         }
-                        if(cmd.contains("y")){
+                        if(cmd.get(1).contains("y-axis")){
                             Jog jogRequest = new Jog(cmd.get(0), 0, axisTravelValue, 0);
                             sendJogNetworkRequest(jogRequest);
+
+                            final String axis = cmd.get(1);
+                            final String amount = cmd.get(2);
+
+                            textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+                                @Override
+                                public void onInit(int status) {
+                                    String jogSuccess = "Jogging" + axis + amount +"millimeters";
+                                    textToSpeech.speak(jogSuccess, TextToSpeech.QUEUE_FLUSH, null, null);
+                                }
+
+                            });
                         }
-                        if(cmd.contains("zed")){
+                        if(cmd.get(1).contains("z-axis")){
                             Jog jogRequest = new Jog(cmd.get(0), 0, 0, axisTravelValue);
                             sendJogNetworkRequest(jogRequest);
+
+                            final String axis = cmd.get(1);
+                            final String amount = cmd.get(2);
+
+                            textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+                                @Override
+                                public void onInit(int status) {
+                                    String jogSuccess = "Jogging" + axis + amount +"millimeters";
+                                    textToSpeech.speak(jogSuccess, TextToSpeech.QUEUE_FLUSH, null, null);
+                                }
+
+                            });
                         }
                     }
 
