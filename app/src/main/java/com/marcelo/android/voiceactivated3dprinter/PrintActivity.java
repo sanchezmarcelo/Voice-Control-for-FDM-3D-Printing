@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,12 +40,12 @@ import static com.marcelo.android.voiceactivated3dprinter.ComputeServerRequestGe
 public class PrintActivity extends AppCompatActivity {
 
     WebView thingiverse;
-
+    TextToSpeech textToSpeech;
     OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
     HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
     private Retrofit builder = new Retrofit.Builder()
-            .baseUrl("http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com")
+            .baseUrl("http://ec2-52xxxxxxxxxxxx.compute.amazonaws.com")
             .addConverterFactory(GsonConverterFactory.create()).client(okHttpClientBuilder.build()).build();
 
     @Override
@@ -81,7 +82,7 @@ public class PrintActivity extends AppCompatActivity {
 
     public void redirectToGcodePage(){
         // redirect to download link for gcode
-        thingiverse.setWebViewClient(new ThingiverseViewClient(thingiverse, "http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com/gcode.html"));
+        thingiverse.setWebViewClient(new ThingiverseViewClient(thingiverse, "http://ec2xxxxxxxxxxx.compute.amazonaws.com/gcode.html"));
         thingiverse.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
@@ -115,12 +116,24 @@ public class PrintActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 dialog.dismiss();
                 redirectToHome();
-                Toast.makeText(PrintActivity.this, "Success. Printing STL...", Toast.LENGTH_SHORT).show();
+                initSuccessResponse();
+                Toast.makeText(PrintActivity.this, "Quick Print Successful.", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(PrintActivity.this, "Cloud Slice: No response ", Toast.LENGTH_SHORT).show();
             }
+        });
+    }
+
+    public void initSuccessResponse(){
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                String message = "3D Printing sequence initiated.";
+                textToSpeech.speak(message, TextToSpeech.QUEUE_FLUSH, null, null);
+            }
+
         });
     }
 

@@ -12,7 +12,7 @@ public interface HomeClient {
 //"Content-Type: application/json"
     //key: ?3F80F0B915C34471B2BF0C918212F98A
 
-    String key = "3F80F0B915C34471B2BF0C918212F98A";
+    String key = "3F80F0B9xxxxxxxxxxx18212F98A";
 
     public String getKey();
 

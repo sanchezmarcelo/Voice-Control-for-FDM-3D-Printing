@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkRequestGenerator {
 
-    private static final String baseURL = "http://104.145.72.254:11139/";
+    private static final String baseURL = "http://xxxxxxxxxxx11139/";
     //private static final String baseURL = "https//octopi.local";
 
     static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

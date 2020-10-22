@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ComputeServerRequestGenerator {
-    private static final String baseURL = "http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com/";
+    private static final String baseURL = "http://ec2-xxxxxxxxxxxx-2.compute.amazonaws.com/";
 
     static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

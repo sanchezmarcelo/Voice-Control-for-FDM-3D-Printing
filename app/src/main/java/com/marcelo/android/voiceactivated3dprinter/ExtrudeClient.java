@@ -10,7 +10,7 @@ import retrofit2.http.POST;
  */
 public interface ExtrudeClient {
 
-    @Headers({"Content-Type: application/json", "X-Api-Key: 3F80F0B915C34471B2BF0C918212F98A"
+    @Headers({"Content-Type: application/json", "X-Api-Key: 3F80Fxxxxxxxxxx18212F98A"
     } )
     @POST("api/printer/tool")
     Call<Extrude> newExtrudeSession(@Body Extrude extrude);

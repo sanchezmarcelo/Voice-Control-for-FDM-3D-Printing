@@ -8,7 +8,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface PrintJobClient {
-    @Headers({"Content-Type: multipart/form-data", "X-Api-Key: 3F80F0B915C34471B2BF0C918212F98A",
+    @Headers({"Content-Type: multipart/form-data", "X-Api-Key: XXXXXXXXXXXXXXXXX",
            "Content-Type: multipart/form-data", "Content-Disposition: form-data", "name: file", "filename: cloud.gcode",
             "Content-Type: application/octet-stream"
     })

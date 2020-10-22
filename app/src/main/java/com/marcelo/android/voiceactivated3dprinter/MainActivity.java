@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
                         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
-                                String homeSuccess = "Now homing all axes.";
+                                String homeSuccess = "Now homing all axis.";
                                 textToSpeech.speak(homeSuccess, TextToSpeech.QUEUE_FLUSH, null, null);
                             }
 
@@ -340,6 +340,22 @@ public class MainActivity extends AppCompatActivity {
                     print.putExtra("key", userOBJ);
                     startActivity(print);
                 }
+
+                //COOLDOWN PRINTER REQUEST
+                if(cmd.get(0).equals("cool")){
+                    int nozzleOnetemp = 0;
+                    int nozzleTwoTemp = 0;
+
+                    Nozzle.Targets nozzleTargetTemp = new Nozzle.Targets(nozzleOnetemp, nozzleTwoTemp);
+                    Nozzle nozzleCmd = new Nozzle("target", nozzleTargetTemp);
+                    sendNozzleNetworkRequest(nozzleCmd);
+
+                    int bedTemp = 0;
+                    Bed bedRequest = new Bed("target", bedTemp);
+                    sendBedNetworkRequest(bedRequest);
+                }
+
+                
             }
         }
     }
