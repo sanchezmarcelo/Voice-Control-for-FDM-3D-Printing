@@ -33,5 +33,6 @@ Feature A is inclusive of the following commands:
         Ex. User states: “Bed 60”
                                                                                                                                                                                                                                        
 Feature B:
-        Example: User states the following print command
+        Example: User states the following print command:
+        
         “Print a Wrench”
