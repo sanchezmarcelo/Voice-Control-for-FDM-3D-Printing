@@ -33,6 +33,6 @@ Feature A is inclusive of the following commands:
         Ex. User states: “Bed 60”
                                                                                                                                                                                                                                        
 Feature B:
-        Example: User states the following print command:
+        Example: User states the following print command. The application queries the results for 'wrench' (from thingiverse.com) and returns the results. You simply then select which 'wrench' object you'd like to print and hit the 'print this thing' button on the UI. The file is downloaded, unziped, and sliced into GCODE on the AWS server. The GCODE is then set to the OctoPrint API via curl. The printer begins to pre-heat and the object is queued for 3D printing! - All from simply stating so.
         
         “Print a Wrench”
