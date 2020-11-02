@@ -3,7 +3,9 @@ An android application that allows a user to interface with a 3D printer using t
 
 With three prior years of experience working and building 3D printers, it's evident that the 3D printing community could benefit from a new interface: one’s voice. Hence, this project embarks towards creating software that can effectively transfer voice commands to a 3D printer. 
 
-Requirements/Specifications: OctoPrint software must be pre-installed and successfully functioning on the user’s 3D printer. Custom Compute Server with Cura Engine CLI installed (refer to PHP and Bash Scripts in this repo if you'd like to recreate). My custom server: http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com/ 
+Requirements/Specifications: OctoPrint software must be pre-installed and successfully functioning on the user’s 3D printer. Custom Compute Server with Cura Engine CLI installed (refer to PHP and Bash Scripts in this repo if you'd like to recreate). My custom server with an implementation of the Cura Engine Console C++ Application: http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com/ 
+
+HOWTO install the Cura Engine Console Verision: https://github.com/Ultimaker/CuraEngine
 
 Feature A is inclusive of the following commands:
 
