@@ -1,7 +1,11 @@
 # Voice-Control-for-FDM-3D-Printing
-An android application that allows a user to interface with a 3D printer using their voice.
+Control your 3D Printer with your voice!
 
-With three prior years of experience working and building 3D printers, it's evident that the 3D printing community could benefit from a new interface: one’s voice. Hence, this project embarks towards creating software that can effectively transfer voice commands to a 3D printer. 
+The rise of affordable and reliable fused deposition modeling (FDM) 3D printers has transformed small-scale manufacturing. Most consumer 3D printers are controlled through a built-in interface, typically an LCD screen with a rotary knob. Some also support third-party APIs or management solutions, offering remote control capabilities, model uploads, and performance tracking.
+
+With three years of experience working with and building 3D printers, I saw an opportunity for a more intuitive interface: voice control.
+
+This project aims to develop software that enables users to control a 3D printer using voice commands. These commands include mechanical operations such as heating the tool head, heating the build plate, and homing the axes, as well as initiating prints with phrases like, “Print a wrench.” Users interact with the system through an Android mobile app, which sends commands to Server A—responsible for direct communication with the 3D printer. For print requests, commands are forwarded to Server B, where 3D models are converted into G-code, the required format for printing.
 
 Requirements/Specifications: OctoPrint software must be pre-installed and successfully functioning on the user’s 3D printer. Custom Compute Server with Cura Engine CLI installed (refer to PHP and Bash Scripts in this repo if you'd like to recreate). My custom server with an implementation of the Cura Engine Console C++ Application: http://ec2-52-14-63-95.us-east-2.compute.amazonaws.com/ 
 
